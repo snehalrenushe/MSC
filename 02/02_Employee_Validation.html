@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Validation</title>
+    <script type="text/javascript">
+        function validate()
+        {
+            var regName = /^[a-zA-z]+[a-zA-Z]+$/;
+            var dateformatdob = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+            var dateformatjdate = /^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/;
+
+            // Max six digits , a dot , max two digits after dot
+
+            var salaryformat = /^d{1,6}(?:\.\d{0,2})?$/
+
+            var name = document.getElementById('txtname').value;
+            var dob = document.getElementById('txtdob').value;
+            var jdate = document.getElementById('txtdate').value;
+            var salary = document.getElementById('txtsalary').value;
+
+            if(!regName.test(name))
+            {
+                alert('Invalid name is given');
+            }
+            else
+            {
+                alert('valid name is given');
+            }
+            if(!dateformatdob.test(dob))
+            {
+                alert('Invalid date of birth is given');
+            }
+            else
+            {
+                alert('valid date of birth is given');
+            }
+            if(!dateformatjdate.test(jdate))
+            {
+                alert('Invalid joining date is given');
+            }
+            else
+            {
+                alert('valid joining date is given');
+            }
+            if(!salaryformat.test(salary))
+            {
+                alert('Invalid salary');
+            }
+            else
+            {
+                alert('salary is valid');
+            }
+        }
+    </script>
+</head>
+<body>
+    <center>
+        <form>
+            <h1>Employee Registration Details</h1><br><br>
+            Enter Employee First Name 
+            <input type="text" name="txtFname" id="txtname"><br><br>
+    
+            Enter DOB
+            <input type="text" name="txtDob" id="txtdob"><br><br>
+    
+            Enter Joining Date
+            <input type="text" name="txtDate" id="txtdate"><br><br>
+    
+            Enter Salary
+            <input type="text" name="txtSalary" id="txtsalary"><br><br>
+    
+            <input type="button" value="Validate" onclick="validate()">
+        </form>
+    </center>
+</body>
+</html>

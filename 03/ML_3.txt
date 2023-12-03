@@ -1,0 +1,27 @@
+import pandas as pd
+
+df = pd.read_csv(r'C:\Users\Abhishek\Downloads\data.csv')
+
+df
+
+df1 = pd.get_dummies(df['v6'])
+
+df = pd.concat([df, df1], axis=1).reindex(df.index)
+
+df
+
+from sklearn.preprocessing import LabelEncoder
+
+le = LabelEncoder()
+
+label = le.fit_transform(df['v6'])
+
+label
+
+df.drop("v6", axis=1, inplace=True)
+
+df
+
+df["v6"] = label
+
+df

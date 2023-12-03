@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Validation</title>
+</head>
+<body>
+    <center>
+        Enter Email : <input type="text" id="uemail"><br><br>
+        <button type="button" onclick="validateEmail(uemail);">Submit</button>
+    </center>
+
+    <script>
+        function validateEmail(uemail)
+        {
+            if(!(uemail.value == ''))
+            {
+                var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                if(uemail.value.match(mailformat))
+                {
+                    alert('Login Successfull');
+                    uemail.value = '';
+                    return true;
+                }
+                else
+                {
+                    alert('You have entered an invalid email address!');
+                    uemail.focus();
+                    return false;
+                }
+            }
+            else
+            {
+                alert('Feilds should not be empty');
+                return false;
+            }
+        }
+    </script>
+</body>
+</html>
