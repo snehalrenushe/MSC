@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+
+    <script type="text/javascript">
+        function valid(){
+            var regName = /^[a-zA-z]+[a-zA-Z]+$/;
+            var fName = document.getElementById('firstNm').value;
+            var lName = document.getElementById('lastNm').value;
+            var age = document.getElementById('age').value;
+
+            if(fName == '' || fName == null)
+            {
+                alert("Enter First Name");
+                return false
+            }
+            else if(lName == '' || lName == null)
+            {
+                alert('Enter Last Name');
+                return false;
+            }
+            else if(age < 18 || age > 50)
+            {
+                alert('Age should be between 18 to 50');
+                return false;
+            }
+            else if(!regName.test(fName))
+            {
+                alert('Invalid first name is given');
+                return false;
+            }
+            else if(!regName.test(lName))
+            {
+                alert('Invalid last name is given');
+                return false;
+            }
+            else
+            {
+                alert('Student Info Saved Successfully');
+            }
+
+        }
+    </script>
+</head>
+<body>
+   <center>
+    <form action="" onsubmit="return valid()">
+        First Name : <input type="text" id="firstNm"><br><br>
+        Last Name : <input type="text" id="lastNm"><br><br>
+        Age : <input type="text" id="age"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+   </center> 
+</body>
+</html>
