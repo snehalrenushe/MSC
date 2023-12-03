@@ -1,0 +1,22 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+
+col=['sepal_length','sepal_width','petal_lenght','petal_width','type']
+
+iris = pd.read_csv(r'C:\Users\Abhishek\Downloads\sepal\8836201-6f9306ad21398ea43cba4f7d537619d0e07d5ae3\iris.csv')
+
+print('First five rows')
+
+print(iris.head())
+
+print('columns',iris.columns)
+
+print('shape :',iris.shape)
+
+print('Size :',iris.size)
+
+iris.plot(kind='scatter',x='sepal.length',y='petal.length')
+
+plt.grid()

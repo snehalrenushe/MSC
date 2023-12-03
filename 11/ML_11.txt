@@ -1,0 +1,23 @@
+import pandas as pd
+import numpy as np
+
+dict = {'first score':[100,90,np.nan,95],'second score':[30,45,66,np.nan],'third score':[np.nan,40,80,98]}
+
+df = pd.DataFrame(dict)
+
+df.isnull()
+
+data = pd.read_csv(r'C:\Users\Abhishek\Downloads\employees.csv')
+
+bool_series = pd.isnull(data['Gender'])
+
+data[bool_series]
+
+new_data = data.dropna(axis = 0, how ='any')
+
+new_data
+
+print("Old data frame length:", len(data))
+print("New data frame length:", len(new_data))
+
+print("Number of rows with at least 1 NA value: ", (len(data)-len(new_data)))
