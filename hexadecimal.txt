@@ -1,0 +1,111 @@
+import java.util.ArrayList;
+import java.util.List;
+
+// Subject interface
+interface NumberSubject {
+    void registerObserver(NumberObserver observer);
+    void removeObserver(NumberObserver observer);
+    void notifyObservers();
+    void setNumber(int number);
+}
+
+// Concrete Subject
+class DecimalNumber implements NumberSubject {
+    private int number;
+    private List<NumberObserver> observers = new ArrayList<>();
+
+    @Override
+    public void registerObserver(NumberObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(NumberObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (NumberObserver observer : observers) {
+            observer.update();
+        }
+    }
+
+    @Override
+    public void setNumber(int number) {
+        this.number = number;
+        notifyObservers();
+    }
+
+    public int getNumber() {
+        return number;
+    }
+}
+
+// Observer interface
+interface NumberObserver {
+    void update();
+}
+
+// Concrete Observer 1
+class HexadecimalObserver implements NumberObserver {
+    private DecimalNumber decimalNumber;
+
+    public HexadecimalObserver(DecimalNumber decimalNumber) {
+        this.decimalNumber = decimalNumber;
+        decimalNumber.registerObserver(this);
+    }
+
+    @Override
+    public void update() {
+        System.out.println("Hexadecimal: " + Integer.toHexString(decimalNumber.getNumber()));
+    }
+}
+
+// Concrete Observer 2
+class OctalObserver implements NumberObserver {
+    private DecimalNumber decimalNumber;
+
+    public OctalObserver(DecimalNumber decimalNumber) {
+        this.decimalNumber = decimalNumber;
+        decimalNumber.registerObserver(this);
+    }
+
+    @Override
+    public void update() {
+        System.out.println("Octal: " + Integer.toOctalString(decimalNumber.getNumber()));
+    }
+}
+
+// Concrete Observer 3
+class BinaryObserver implements NumberObserver {
+    private DecimalNumber decimalNumber;
+
+    public BinaryObserver(DecimalNumber decimalNumber) {
+        this.decimalNumber = decimalNumber;
+        decimalNumber.registerObserver(this);
+    }
+
+    @Override
+    public void update() {
+        System.out.println("Binary: " + Integer.toBinaryString(decimalNumber.getNumber()));
+    }
+}
+
+// Client
+public class ObserverPatternExample {
+    public static void main(String[] args) {
+        DecimalNumber decimalNumber = new DecimalNumber();
+        HexadecimalObserver hexadecimalObserver = new HexadecimalObserver(decimalNumber);
+        OctalObserver octalObserver = new OctalObserver(decimalNumber);
+        BinaryObserver binaryObserver = new BinaryObserver(decimalNumber);
+
+        // Set a decimal number and observe the conversions
+        decimalNumber.setNumber(10);
+
+        System.out.println(); // Adding a newline for better readability
+
+        // Set a different decimal number and observe the conversions
+        decimalNumber.setNumber(25);
+    }
+}

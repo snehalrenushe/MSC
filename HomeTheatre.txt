@@ -1,0 +1,100 @@
+// Subsystem components
+class DVDPlayer {
+    public void on() {
+        System.out.println("DVD Player is ON");
+    }
+
+    public void play(String movie) {
+        System.out.println("Playing movie: " + movie);
+    }
+
+    public void stop() {
+        System.out.println("DVD Player stopped");
+    }
+
+    public void off() {
+        System.out.println("DVD Player is OFF");
+    }
+}
+
+class Projector {
+    public void on() {
+        System.out.println("Projector is ON");
+    }
+
+    public void setInput(DVDPlayer dvdPlayer) {
+        System.out.println("Setting input to DVD Player");
+    }
+
+    public void wideScreenMode() {
+        System.out.println("Projector is in wide screen mode");
+    }
+
+    public void off() {
+        System.out.println("Projector is OFF");
+    }
+}
+
+class Lights {
+    public void dim() {
+        System.out.println("Lights are dimmed");
+    }
+
+    public void on() {
+        System.out.println("Lights are ON");
+    }
+
+    public void off() {
+        System.out.println("Lights are OFF");
+    }
+}
+
+// Facade
+class HomeTheaterFacade {
+    private DVDPlayer dvdPlayer;
+    private Projector projector;
+    private Lights lights;
+
+    public HomeTheaterFacade(DVDPlayer dvdPlayer, Projector projector, Lights lights) {
+        this.dvdPlayer = dvdPlayer;
+        this.projector = projector;
+        this.lights = lights;
+    }
+
+    public void watchMovie(String movie) {
+        System.out.println("Get ready to watch a movie...");
+        dvdPlayer.on();
+        dvdPlayer.play(movie);
+        projector.on();
+        projector.setInput(dvdPlayer);
+        projector.wideScreenMode();
+        lights.dim();
+    }
+
+    public void endMovie() {
+        System.out.println("Shutting down the home theater...");
+        dvdPlayer.stop();
+        dvdPlayer.off();
+        projector.off();
+        lights.on();
+    }
+}
+
+// Client
+public class FacadePatternExample {
+    public static void main(String[] args) {
+        DVDPlayer dvdPlayer = new DVDPlayer();
+        Projector projector = new Projector();
+        Lights lights = new Lights();
+
+        HomeTheaterFacade homeTheater = new HomeTheaterFacade(dvdPlayer, projector, lights);
+
+        // Watch a movie
+        homeTheater.watchMovie("The Matrix");
+
+        System.out.println(); // Adding a newline for better readability
+
+        // End the movie
+        homeTheater.endMovie();
+    }
+}

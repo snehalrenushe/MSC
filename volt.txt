@@ -1,0 +1,42 @@
+// Target interface
+interface Volt {
+    int getVolts();
+}
+
+// Adaptee class (existing class with incompatible interface)
+class Socket {
+    public int getVolts() {
+        return 120;
+    }
+}
+
+// Adapter class using Class Adapter pattern
+class VoltAdapter extends Socket implements Volt {
+    @Override
+    public int getVolts() {
+        return super.getVolts();
+    }
+
+    public int get3Volts() {
+        return 3;
+    }
+
+    public int get12Volts() {
+        return 12;
+    }
+}
+
+// Client code
+public class AdapterPatternExample {
+    public static void main(String[] args) {
+        // Using the existing Socket class
+        Socket socket = new Socket();
+        System.out.println("Socket Voltage: " + socket.getVolts() + "V");
+
+        // Using the Adapter to make Socket compatible with Volt interface
+        VoltAdapter voltAdapter = new VoltAdapter();
+        System.out.println("Adapter 3 Volts: " + voltAdapter.get3Volts() + "V");
+        System.out.println("Adapter 12 Volts: " + voltAdapter.get12Volts() + "V");
+        System.out.println("Adapter Default Voltage: " + voltAdapter.getVolts() + "V");
+    }
+}

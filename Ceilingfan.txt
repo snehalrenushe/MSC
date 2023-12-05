@@ -1,0 +1,116 @@
+import java.util.Stack;
+
+// Command interface
+interface Command {
+    void execute();
+    void undo();
+}
+
+// Concrete Command 1
+class CeilingFanOnCommand implements Command {
+    private CeilingFan ceilingFan;
+
+    public CeilingFanOnCommand(CeilingFan ceilingFan) {
+        this.ceilingFan = ceilingFan;
+    }
+
+    @Override
+    public void execute() {
+        ceilingFan.turnOn();
+    }
+
+    @Override
+    public void undo() {
+        ceilingFan.turnOff();
+    }
+}
+
+// Concrete Command 2
+class CeilingFanOffCommand implements Command {
+    private CeilingFan ceilingFan;
+
+    public CeilingFanOffCommand(CeilingFan ceilingFan) {
+        this.ceilingFan = ceilingFan;
+    }
+
+    @Override
+    public void execute() {
+        ceilingFan.turnOff();
+    }
+
+    @Override
+    public void undo() {
+        ceilingFan.turnOn();
+    }
+}
+
+// Receiver
+class CeilingFan {
+    private boolean isOn;
+
+    public void turnOn() {
+        isOn = true;
+        System.out.println("Ceiling Fan is ON");
+    }
+
+    public void turnOff() {
+        isOn = false;
+        System.out.println("Ceiling Fan is OFF");
+    }
+
+    public boolean isOn() {
+        return isOn;
+    }
+}
+
+// Invoker
+class RemoteControl {
+    private Command command;
+    private Stack<Command> commandHistory = new Stack<>();
+
+    public void setCommand(Command command) {
+        this.command = command;
+    }
+
+    public void pressButton() {
+        command.execute();
+        commandHistory.push(command);
+    }
+
+    public void pressUndoButton() {
+        if (!commandHistory.isEmpty()) {
+            Command lastCommand = commandHistory.pop();
+            lastCommand.undo();
+        } else {
+            System.out.println("No more commands to undo.");
+        }
+    }
+}
+
+// Client
+public class CeilingFanTest {
+    public static void main(String[] args) {
+        // Create the ceiling fan and its commands
+        CeilingFan ceilingFan = new CeilingFan();
+        CeilingFanOnCommand fanOn = new CeilingFanOnCommand(ceilingFan);
+        CeilingFanOffCommand fanOff = new CeilingFanOffCommand(ceilingFan);
+
+        // Create the remote control
+        RemoteControl remote = new RemoteControl();
+
+        // Set commands for the remote control
+        remote.setCommand(fanOn);
+
+        // Press the button to turn on the ceiling fan
+        remote.pressButton();
+
+        // Set a different command for the remote control
+        remote.setCommand(fanOff);
+
+        // Press the button to turn off the ceiling fan
+        remote.pressButton();
+
+        // Press the undo button to undo the last command
+        remote.pressUndoButton();
+    }
+}

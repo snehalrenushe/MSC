@@ -1,0 +1,38 @@
+// Target interface
+interface Beat {
+    void beat();
+}
+
+// Adaptee class (existing class with incompatible interface)
+class Heart {
+    void pump() {
+        System.out.println("Heart is pumping");
+    }
+}
+
+// Adapter class implementing the Target interface
+class HeartAdapter implements Beat {
+    private Heart heart;
+
+    public HeartAdapter(Heart heart) {
+        this.heart = heart;
+    }
+
+    @Override
+    public void beat() {
+        heart.pump();
+    }
+}
+
+// Client code using the Target interface
+public class AdapterPatternExample {
+    public static void main(String[] args) {
+        // Using the existing Heart class
+        Heart heart = new Heart();
+        heart.pump();
+
+        // Using the Adapter to make Heart compatible with Beat interface
+        Beat heartAdapter = new HeartAdapter(heart);
+        heartAdapter.beat();
+    }
+}

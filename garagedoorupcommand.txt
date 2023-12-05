@@ -1,0 +1,145 @@
+// Command interface
+interface Command {
+    void execute();
+}
+
+// Concrete Command 1
+class LightOnCommand implements Command {
+    private Light light;
+
+    public LightOnCommand(Light light) {
+        this.light = light;
+    }
+
+    @Override
+    public void execute() {
+        light.turnOn();
+    }
+}
+
+// Concrete Command 2
+class LightOffCommand implements Command {
+    private Light light;
+
+    public LightOffCommand(Light light) {
+        this.light = light;
+    }
+
+    @Override
+    public void execute() {
+        light.turnOff();
+    }
+}
+
+// Concrete Command 3
+class GarageDoorUpCommand implements Command {
+    private GarageDoor garageDoor;
+
+    public GarageDoorUpCommand(GarageDoor garageDoor) {
+        this.garageDoor = garageDoor;
+    }
+
+    @Override
+    public void execute() {
+        garageDoor.up();
+    }
+}
+
+// Concrete Command 4
+class StereoOnWithCDCommand implements Command {
+    private Stereo stereo;
+
+    public StereoOnWithCDCommand(Stereo stereo) {
+        this.stereo = stereo;
+    }
+
+    @Override
+    public void execute() {
+        stereo.on();
+        stereo.setCD();
+        stereo.setVolume(11);
+    }
+}
+
+// Receiver 1
+class Light {
+    public void turnOn() {
+        System.out.println("Light is ON");
+    }
+
+    public void turnOff() {
+        System.out.println("Light is OFF");
+    }
+}
+
+// Receiver 2
+class GarageDoor {
+    public void up() {
+        System.out.println("Garage Door is Open");
+    }
+}
+
+// Receiver 3
+class Stereo {
+    public void on() {
+        System.out.println("Stereo is ON");
+    }
+
+    public void setCD() {
+        System.out.println("CD is set");
+    }
+
+    public void setVolume(int volume) {
+        System.out.println("Volume set to " + volume);
+    }
+}
+
+// Invoker
+class RemoteControl {
+    private Command command;
+
+    public void setCommand(Command command) {
+        this.command = command;
+    }
+
+    public void pressButton() {
+        command.execute();
+    }
+}
+
+// Client
+public class CommandPatternExample {
+    public static void main(String[] args) {
+        // Create receivers
+        Light light = new Light();
+        GarageDoor garageDoor = new GarageDoor();
+        Stereo stereo = new Stereo();
+
+        // Create commands
+        Command lightOn = new LightOnCommand(light);
+        Command lightOff = new LightOffCommand(light);
+        Command garageDoorUp = new GarageDoorUpCommand(garageDoor);
+        Command stereoOnWithCD = new StereoOnWithCDCommand(stereo);
+
+        // Create remote control
+        RemoteControl remote = new RemoteControl();
+
+        // Set commands for the remote control
+        remote.setCommand(lightOn);
+
+        // Press the button to turn on the light
+        remote.pressButton();
+
+        // Set a different command for the remote control
+        remote.setCommand(garageDoorUp);
+
+        // Press the button to open the garage door
+        remote.pressButton();
+
+        // Set another command for the remote control
+        remote.setCommand(stereoOnWithCD);
+
+        // Press the button to turn on the stereo with CD
+        remote.pressButton();
+    }
+}

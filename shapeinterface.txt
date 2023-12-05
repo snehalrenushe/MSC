@@ -1,0 +1,77 @@
+// Abstract product interface
+interface Shape {
+    void draw();
+}
+
+// Concrete product 1
+class Circle implements Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Circle");
+    }
+}
+
+// Concrete product 2
+class Rectangle implements Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Rectangle");
+    }
+}
+
+// Concrete product 3
+class Square implements Shape {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a Square");
+    }
+}
+
+// Abstract Factory interface
+interface ShapeFactory {
+    Shape createShape();
+}
+
+// Concrete Factory 1
+class CircleFactory implements ShapeFactory {
+    @Override
+    public Shape createShape() {
+        return new Circle();
+    }
+}
+
+// Concrete Factory 2
+class RectangleFactory implements ShapeFactory {
+    @Override
+    public Shape createShape() {
+        return new Rectangle();
+    }
+}
+
+// Concrete Factory 3
+class SquareFactory implements ShapeFactory {
+    @Override
+    public Shape createShape() {
+        return new Square();
+    }
+}
+
+// Client
+public class AbstractFactoryPatternExample {
+    public static void main(String[] args) {
+        // Create a Circle using the CircleFactory
+        ShapeFactory circleFactory = new CircleFactory();
+        Shape circle = circleFactory.createShape();
+        circle.draw();
+
+        // Create a Rectangle using the RectangleFactory
+        ShapeFactory rectangleFactory = new RectangleFactory();
+        Shape rectangle = rectangleFactory.createShape();
+        rectangle.draw();
+
+        // Create a Square using the SquareFactory
+        ShapeFactory squareFactory = new SquareFactory();
+        Shape square = squareFactory.createShape();
+        square.draw();
+    }
+}

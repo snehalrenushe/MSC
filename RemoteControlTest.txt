@@ -1,0 +1,81 @@
+// Command interface
+interface Command {
+    void execute();
+}
+
+// Concrete Command 1
+class LightOnCommand implements Command {
+    private Light light;
+
+    public LightOnCommand(Light light) {
+        this.light = light;
+    }
+
+    @Override
+    public void execute() {
+        light.turnOn();
+    }
+}
+
+// Concrete Command 2
+class LightOffCommand implements Command {
+    private Light light;
+
+    public LightOffCommand(Light light) {
+        this.light = light;
+    }
+
+    @Override
+    public void execute() {
+        light.turnOff();
+    }
+}
+
+// Receiver
+class Light {
+    public void turnOn() {
+        System.out.println("Light is ON");
+    }
+
+    public void turnOff() {
+        System.out.println("Light is OFF");
+    }
+}
+
+// Invoker
+class RemoteControl {
+    private Command command;
+
+    public void setCommand(Command command) {
+        this.command = command;
+    }
+
+    public void pressButton() {
+        command.execute();
+    }
+}
+
+// Client
+public class RemoteControlTest {
+    public static void main(String[] args) {
+        // Create the light and its commands
+        Light light = new Light();
+        LightOnCommand lightOn = new LightOnCommand(light);
+        LightOffCommand lightOff = new LightOffCommand(light);
+
+        // Create the remote control
+        RemoteControl remote = new RemoteControl();
+
+        // Set commands for the remote control
+        remote.setCommand(lightOn);
+
+        // Press the button to turn on the light
+        remote.pressButton();
+
+        // Set a different command for the remote control
+        remote.setCommand(lightOff);
+
+        // Press the button to turn off the light
+        remote.pressButton();
+    }
+}
